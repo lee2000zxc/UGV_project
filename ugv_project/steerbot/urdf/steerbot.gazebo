@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+
+<robot>
+
+	 <gazebo reference="front_left_wheel">
+	   <material>Gazebo/Grey</material>
+	 </gazebo>
+	 <gazebo reference="front_right_wheel">
+	   <material>Gazebo/Grey</material>
+	 </gazebo>
+	 <gazebo reference="rear_left_wheel">
+	   <material>Gazebo/Grey</material>
+	 </gazebo>
+	 <gazebo reference="rear_right_wheel">
+	   <material>Gazebo/Grey</material>
+	 </gazebo>
+   <gazebo>
+      <plugin name="ackermansteer" filename="libackermansteer.so">
+         <debug>false</debug>
+         <commandTopic>cmd_vel</commandTopic>
+         <odometryTopic>odom</odometryTopic>
+         <robotBaseFrame>base_footprint</robotBaseFrame>
+         <publishWheelTF>false</publishWheelTF>
+         <publishOdomTF>true</publishOdomTF>
+         <wheelDiameter>0.15</wheelDiameter>
+         <wheelAcceleration>0.0</wheelAcceleration>
+         <wheelTorque>10.0</wheelTorque>
+         <updateRate>50.0</updateRate>
+
+         <!-- Wheel Placement -->
+         <wheelbase>0.25</wheelbase>
+         <wheelSeparation>0.3</wheelSeparation>
+         
+         <!-- Wheel Joints -->
+         <FR_steerJoint>front_right_steer_bearing</FR_steerJoint>
+         <FR_driveJoint>front_right_wheel_bearing</FR_driveJoint>
+         <FL_steerJoint>front_left_steer_bearing</FL_steerJoint>
+         <FL_driveJoint>front_left_wheel_bearing</FL_driveJoint>
+         <RL_steerJoint>rear_left_steer_bearing</RL_steerJoint>
+         <RL_driveJoint>rear_left_wheel_bearing</RL_driveJoint>
+         <RR_steerJoint>rear_right_steer_bearing</RR_steerJoint>
+         <RR_driveJoint>rear_right_wheel_bearing</RR_driveJoint>
+
+         <!--PID settings - - - - - - - - - - - - - - - - - - - -
+              p      -    proportional gain
+              i      -    intergral gain
+              d      -    derivative gain
+              imax   -    anti windup max
+              imin   -    anti windup min
+         - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
+         <!-- Wheel Velocity PID settings -->
+         <drive_p>5.0</drive_p>
+         <drive_i>0.001</drive_i>
+         <drive_d>0.01</drive_d>
+         <drive_imax>1.0</drive_imax>
+         <drive_imin>-1.0</drive_imin>
+         <drive_max_effort>10.0</drive_max_effort>
+
+         <!-- Steering PID settings -->
+         <steer_p>4.0</steer_p>
+         <steer_i>0.05</steer_i>
+         <steer_d>0.1</steer_d>
+         <steer_imax>2.0</steer_imax>
+         <steer_imin>-2.0</steer_imin>
+         <steer_max_effort>10.0</steer_max_effort>
+         <steer_init_angle>0.01</steer_init_angle>
+
+      </plugin>
+    </gazebo>
+
+		<gazebo reference="camera_link">  
+      <sensor type="depth" name="camera">
+        <always_on>true</always_on>
+        <update_rate>20.0</update_rate>
+        <camera>
+          <horizontal_fov>${120.0*3.141592/180.0}</horizontal_fov>
+          <image>
+            <format>R8G8B8</format>
+            <width>640</width>
+            <height>480</height>
+          </image>
+          <clip>
+            <near>0.05</near>
+            <far>100.0</far>
+          </clip>
+		      <lens>
+						<env_texture_size>512</env_texture_size>
+					</lens>
+        </camera>
+        <plugin name="kinect_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+          <cameraName>camera</cameraName>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>15</updateRate>
+          <imageTopicName>rgb/image_raw</imageTopicName>
+          <depthImageTopicName>depth/image_raw</depthImageTopicName>
+          <pointCloudTopicName>depth/points</pointCloudTopicName>
+          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+          <frameName>camera_depth_optical_frame</frameName>
+          <baseline>0.1</baseline>
+          <distortion_k1>0.0</distortion_k1>
+          <distortion_k2>0.0</distortion_k2>
+          <distortion_k3>0.0</distortion_k3>
+          <distortion_t1>0.0</distortion_t1>
+          <distortion_t2>0.0</distortion_t2>
+          <pointCloudCutoff>0.4</pointCloudCutoff>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+    <gazebo reference="scan_link">
+      <sensor type="ray" name="laser">
+        <pose>0 0 0 0 0 0</pose>
+        <update_rate>20</update_rate>
+        <always_on>true</always_on>
+        <visualize>false</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>720</samples>
+              <resolution>1</resolution>
+              <min_angle>-2.356194</min_angle>
+              <max_angle>2.356194</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.01</min>
+            <max>20.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin name="gazebo_ros_hokuyo" filename="libgazebo_ros_laser.so">
+          <topicName>scan</topicName>
+          <frameName>horizontal_laser_link</frameName>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+</robot>
+

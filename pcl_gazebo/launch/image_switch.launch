@@ -1,0 +1,6 @@
+<!-- -->
+<launch>
+ <arg name="robot_namespace" default="scout"/>
+ <node pkg="image_switch" type="image_switch" name="image_switch" ns="$(arg robot_namespace)" output="screen">
+  </node>
+</launch>

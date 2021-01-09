@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package>
+  <name>pcl_gazebo</name>
+  <version>0.0.1</version>
+  <description>The image marking package</description>
+
+  <maintainer email="hslee89@kaist.ac.kr">ubuntu</maintainer>
+
+  <license>TODO</license>
+ 
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>image_geometry</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>opencv2</build_depend>
+  <build_depend>tf</build_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>cv_bridge</run_depend>
+  <run_depend>image_transport</run_depend>
+  <run_depend>image_geometry</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>opencv2</run_depend>
+  <run_depend>tf</run_depend>
+
+</package>

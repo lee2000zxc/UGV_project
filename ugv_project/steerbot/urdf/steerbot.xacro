@@ -406,6 +406,31 @@
         <parent link="steerbot_chassis"/>
     </joint>
 
+    <link name="back_camera_link">
+        <inertial> 
+		        <mass value="0.01"/>
+		        <origin xyz="0 0 0" rpy="0 0 0"/>
+		        <inertia 
+		           ixx="4.15e-6" 
+		           iyy="2.407e-6" 
+		           izz="2.407e-6" 
+		           ixy="0.0" ixz="0.0" iyz="0.0" 
+		           />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size='0.02 0.1 0.04'/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="back_camera_link_joint" type="fixed">
+        <origin xyz='-0.3 0 0.13' rpy="0 0 3.141592"/>
+        <child link="back_camera_link"/>
+        <parent link="steerbot_chassis"/>
+    </joint>
+
 
     <!-- Hokuyo 2D LiDAR -->
 		<!-- link name="scan_link">
@@ -429,10 +454,10 @@
         <parent link="steerbot_chassis"/>
     </joint-->
 
-		<xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
+		<!--xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
 		<xacro:VLP-16 parent="steerbot_footprint" name="velodyne" topic="/velodyne_points" hz="10" samples="440" gpu="false">
 			<origin xyz="0 0 0.15" rpy="0 0 0" />
-		</xacro:VLP-16>
+		</xacro:VLP-16-->
 
 
 </robot>

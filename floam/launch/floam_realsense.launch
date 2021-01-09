@@ -5,7 +5,7 @@
     <!--include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch"/-->
     
     <!-- For Velodyne VLP-16 -->
-    <param name="scan_line" value="16" />
+    <param name="scan_line" value="8" />
     
 
     <!-- For Velodyne HDL-32 
@@ -21,7 +21,7 @@
 
     <param name="vertical_angle" type="double" value="2.0" />
     <param name="map_resolution" type="double" value="0.2" />
-    <param name="max_dis" type="double" value="90.0" />
+    <param name="max_dis" type="double" value="10.0" />
     <param name="min_dis" type="double" value="0.4" />
     <!--- -->
     <node pkg="floam" type="floam_odom_estimation_node" name="floam_odom_estimation_node" output="screen"/>
